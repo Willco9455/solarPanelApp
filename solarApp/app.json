@@ -21,10 +21,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.squilliam9455.solarApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      ["expo-camera"],
+      [
+        "@viro-community/react-viro",
+        {
+          "androidXrMode":  "AR"
+        }
+      ]
+    ]
   }
 }
