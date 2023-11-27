@@ -1,40 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { ViroARScene,
-  ViroText,
-  ViroARSceneNavigator} from '@viro-community/react-viro';
+import { StyleSheet} from 'react-native';
 import { useState } from 'react';
+import ARScreen from './screens/ARScreen';
+import HomeScreen from './screens/HomeScreen';
 
-const HelloWorldSceneAR = () => {
-  const [text, setText] = useState('Initializing AR...');
-  function onInitialized(state, reason) {
-    console.log('guncelleme', state, reason);
-    setText('Hello World!');
-  }
 
-  return (
-    <ViroARScene onTrackingUpdated={onInitialized}>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={styles.helloWorldTextStyle}
-      />
-    </ViroARScene>
-  );
-};
 
 export default function App() {
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: HelloWorldSceneAR,
-      }}
-      style={styles.f1}
-    />
-    // <View>
-    //   <Text>Hello World</Text>
-    // </View>
+    <ARScreen/>
   );
 }
 
