@@ -15,15 +15,21 @@ remove_conditions = ['Fog', 'Heavy Fog', 'Heavy Rain', 'Heavy Snow',
                      'Mist', 'NA', 'Snow Grains', 'Thunderstorm', 'Thunderstorms and Rain' , 
                      'Unknown', 'nan','Light Snow', 'Snow', 'Rain', 'Light Rain']
 
-for image in os.listdir('./data/images'):
-  try:
-    condition = df.loc[df['Filename'] == image, 'Conds'].item()
-    # if image == '20130609_145731.jpg':
-    #   print(condition)
-  except:
-    condition = 'NA'
-  if condition in remove_conditions:
-    os.remove('./data/images/'+image)
-    print('removed: ', image)
+
+for dir in os.listdir('./data/images'):
+  for image in os.listdir('./data/images/' + dir):
+    night = condition = df.loc[df['Filename'] == image, 'night'].item()
+    if night >= 0.7:
+      os.remove('./data/images/'+dir+'/'+image)
+      print('removed: ', image)
+    try:
+      condition = df.loc[df['Filename'] == image, 'Conds'].item()
+      # if image == '20130609_145731.jpg':
+      #   print(condition)
+    except:
+      condition = 'NA'
+    if condition in remove_conditions:
+      os.remove('./data/images/'+dir+'/'+image)
+      print('removed: ', image)
 
   
