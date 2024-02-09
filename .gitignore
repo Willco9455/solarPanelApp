@@ -3,6 +3,7 @@
 data/
 venv/
 data.zip
+splits/
 
 # dependencies
 node_modules/

@@ -31,5 +31,3 @@ for dir in os.listdir('./data/images'):
     if condition in remove_conditions:
       os.remove('./data/images/'+dir+'/'+image)
       print('removed: ', image)
-
-  
