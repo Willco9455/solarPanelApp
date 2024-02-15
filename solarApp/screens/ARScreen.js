@@ -4,26 +4,42 @@ import { ViroARScene,
   ViroBox,
   ViroARPlane,
   ViroARSceneNavigator,
-  Viro3DObject} from '@viro-community/react-viro';
-import { useState } from 'react';
- 
-const HelloWorldSceneAR = () => {
-  const [text, setText] = useState('Initializing AR...');
-  function onInitialized(state, reason) {
-    // console.log('guncelleme', state, reason);
-    if(state === 1) { 
-      console.log('Lost anchor')
-      setText('oops looks like something is wrong wit the camera')
-    } else {
-      console.log('Has anchor')
-      setText('Hello World!')
-    }
-  }
+  Viro3DObject,
+  ViroCamera
+} from '@viro-community/react-viro';
+import { useEffect, useState } from 'react';
+// import { Magnetometer } from 'expo-sensors';
+import { Accelerometer } from 'expo-sensors';
 
-  function onCameraMove(transofrmation) {
-    console.log(transofrmation.position)
-  }
+import CompassHeading from 'react-native-compass-heading';
+// import {NativeModules} from 'react-native';
+// const {BearingModule} = NativeModules;
 
+const HelloWorldSceneAR = (props) => {
+  if (props.sceneNavigator.viroAppProps.finalHeading == null) {
+    heading = 0
+  } else {
+    heading = props.sceneNavigator.viroAppProps.finalHeading
+  }
+  return (
+    <ViroARScene
+    // onAnchorFound={(data) => console.log(data)}
+    // onAnchorUpdated={() => console.log('onAnchorUpdated')}
+    // onAnchorRemoved={() => console.log('onAnchorRemoved')}
+    >
+      {/* need to wait for camera else app will crash */}
+      {props.sceneNavigator.viroAppProps.camera ? 
+      <ViroCamera position={[0, 0, 0]} rotation={[0, 360 - heading, 0]} active={true} /> : null}
+    
+      <Viro3DObject
+      source={require('../assets/cow.obj')}
+      position={[101.05629718294654,420.3612930881974, 994.8807088287882]}
+      rotation={[20,90,0]}
+      scale={[10, 10, 10]}
+      // materials={["heart"]}
+      type="OBJ" /> 
+  </ViroARScene>
+  );
 
   return (
     <ViroARScene
@@ -42,14 +58,67 @@ const HelloWorldSceneAR = () => {
 };
 
 export default function ARScreen() {
+  const [finalHeading, setFinalHeading] = useState(null)
+  let currentHeading = 0
+  const [camera, setCamera] = useState(false);
+
+  useEffect(() => {
+      setTimeout(() => {
+        setCamera(true);
+      }, 200);
+    }, []);
+    
+  useEffect(() => {
+    let headingStreak = 0
+    let heading = null
+
+    let calibrateInterval = setInterval(() => {
+      if (heading == null) {
+        heading = currentHeading
+      // } else if (heading - 5 >= currentHeading <= heading + 5) {
+      } else if ((currentHeading <= heading + 5) && (currentHeading >= heading - 5)) {
+        headingStreak += 1
+        if (headingStreak >= 20) {
+          clearInterval(calibrateInterval)
+          setFinalHeading(heading)
+        }
+      } else {
+        headingStreak = 0
+        heading = null
+      }
+      console.log('Streak ', headingStreak)
+    }, 100)
+
+  },[])
+
+  useEffect(() => {
+    const degree_update_rate = 1;
+    CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
+      currentHeading = heading
+      console.log(currentHeading)
+    });
+
+
+    return () => {
+      CompassHeading.stop();
+    };
+  }, []);
+
+
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: HelloWorldSceneAR,
-      }}
-      style={styles.f1}
-    />
+    <View style={{flex: 1}}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: HelloWorldSceneAR,
+        }}
+        viroAppProps={{
+          camera: camera,
+          finalHeading: finalHeading
+        }}
+        style={styles.f1}
+      />
+    </View>
   );
 }
 

@@ -56,6 +56,11 @@ react {
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
+    //
+    // Added by install-expo-modules
+    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", rootDir.getAbsoluteFile().getParentFile().getAbsolutePath(), "android", "absolute"].execute(null, rootDir).text.trim())
+    cliFile = new File(["node", "--print", "require.resolve('@expo/cli')"].execute(null, rootDir).text.trim())
+    bundleCommand = "export:embed"
 }
 
 /**
@@ -77,11 +82,11 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
 def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
+    namespace 'com.squilliam9455.solarApp'
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.squilliam9455.solarApp'
     defaultConfig {
         applicationId 'com.squilliam9455.solarApp'
         minSdkVersion rootProject.ext.minSdkVersion
@@ -137,7 +142,6 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
     implementation project(':gvr_common')
     implementation project(':arcore_client')
     implementation project(path: ':react_viro')

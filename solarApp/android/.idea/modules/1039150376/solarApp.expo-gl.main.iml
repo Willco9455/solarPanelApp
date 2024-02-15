@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/fa2225095ecdcb54319cb4ffc4596b89/transformed/jetified-react-android-0.72.6-debug/prefab/modules/jsi/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/fa2225095ecdcb54319cb4ffc4596b89/transformed/jetified-react-android-0.72.6-debug/prefab/modules/jsi/include" type="native-header-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../node_modules/expo-gl/common">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/expo-gl/common" type="native-Source-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../../node_modules/expo-gl/android/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/expo-gl/android/src/main/cpp" type="native-Source-root" />
+    </content>
+  </component>
+</module>
