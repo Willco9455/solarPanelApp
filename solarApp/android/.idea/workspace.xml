@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89bd84f1-81ae-4540-95d2-9834c6132d8d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/squilliam9455/solarApp/BearingModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/squilliam9455/solarApp/MyAppPackage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Fast_SCNN.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dataCleaning.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../dataSeperation.py" beforeDir="false" />
@@ -23,38 +21,17 @@
       <change beforePath="$PROJECT_DIR$/../../old/cnn.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../old/cnn2.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/948332200/solarApp.expo-modules-core.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/948332200/solarApp.expo-modules-core.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/squilliam9455/solarApp/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/squilliam9455/solarApp/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../metro.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../metro.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/jsModel/group1-shard1of2.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../models/jsModel/group1-shard1of2.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/jsModel/group1-shard2of2.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../models/jsModel/group1-shard2of2.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/jsModel/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/../models/jsModel/model.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../screens/ARScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../screens/ARScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../screens/HomeScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../util/solarAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/../util/solarAPI.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../testingModel.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

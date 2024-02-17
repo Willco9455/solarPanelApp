@@ -1,11 +1,15 @@
 import { decode as atob, encode as btoa } from 'base-64'
 
-let globToken = 'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoxLCJ1c2VyIjoibm9uZV9qb25zb25fc3RldmUiLCJpc3MiOiJsb2dpbi5tZXRlb21hdGljcy5jb20iLCJleHAiOjE3MDc4NDY1NDIsInN1YiI6ImFjY2VzcyJ9.IamyeUU_hW1fJBppcD2GiefKoEilq-_sQm5DWuAQcQwxfPZsJsYKNKvUgejquMXfh5sZ5pUIuIHpKaTYrdnmOw'
+let globToken = null
 
 // converts degrees angle to radians
 function toRadians (angle) {
   return angle * (Math.PI / 180);
 }
+
+function toDegrees (radians) {
+  return radians * 180.0 / Math. PI
+} 
 
 // takes azimuth and elevation angles and converts to real world(ar) coordinates
 export function to3d(az, el) {
@@ -26,7 +30,7 @@ export function to3d(az, el) {
     x = Math.cos(toRadians(360 - az)) * scale
     y = -Math.sin(toRadians(360 - az)) * scale
   }
-  z = Math.tan(toRadians(el)) * 1000
+  z = Math.tan(toRadians(el)) * scale
   return [x,y,z]
 }
 
@@ -34,9 +38,10 @@ export function to3d(az, el) {
 export async function getToken() {
   // If the app already has a token then return 
   if (globToken != null) {
+    console.log('sent set token')
     return globToken
   }
-
+  console.log('fetched new')
   let headers = new Headers()
   username = "none_jonson_steve"
   password = "OiBk8F7kY3"
@@ -48,7 +53,6 @@ export async function getToken() {
     return resp.json();
   }).then(function (data) {
     globToken = data.access_token;
-    console.log('token ', data.access_token)
   }).catch(function (err) {
     console.log('something went wrong', err);
   });
@@ -57,29 +61,10 @@ export async function getToken() {
 
 // takes in start time and end time and longitude and latitude as array [lat, long] returns json response 
 // response is an array [{"date": "<>", "value": "<>"}]
-export async function getAsimov(startTime, endTime, loc) {
-  // for testing to avoid requests
-  return [
-    { "date": "2024-02-13T00:00:39Z", "value": 351 },
-    { "date": "2024-02-13T03:00:39Z", "value": 52.8 },
-    { "date": "2024-02-13T06:00:39Z", "value": 93.7 },
-    { "date": "2024-02-13T09:00:39Z", "value": 130.2 },
-    { "date": "2024-02-13T12:00:39Z", "value": 174.2 },
-    { "date": "2024-02-13T15:00:39Z", "value": 219.9 },
-    { "date": "2024-02-13T18:00:39Z", "value": 257.7 },
-    { "date": "2024-02-13T21:00:39Z", "value": 295.8 }
-  ]
-
-  startTime = new Date()
-  endTime = new Date()
-  startTime.setHours(0, 0)
-  endTime.setHours(23, 59)
-
-  loc = [53.480759, -2.242631]
-
+export async function getAsimov(time, loc) {
+  
   req = 'https://api.meteomatics.com/' +
-    startTime.toISOString() + '--' +
-    endTime.toISOString() +
+    time.toISOString() +
     '/sun_azimuth:d/' +
     loc[0] + ',' +
     loc[1] +
@@ -93,7 +78,7 @@ export async function getAsimov(startTime, endTime, loc) {
   }).then(function (resp) {
     return resp.json();
   }).then(function (data) {
-    asiData = data.data[0].coordinates[0].dates
+    asiData = data.data[0].coordinates[0].dates[0].value
     console.log('Asimov data Successfully fetched')
   }).catch(function (err) {
     console.log('something went wrong', err);
@@ -102,46 +87,135 @@ export async function getAsimov(startTime, endTime, loc) {
   return (asiData)
 }
 
-export async function getElevation(startTime, endTime, loc) {
 
-  return [
-  { "date": "2024-02-13T00:00:37Z", "value": -49.8 }, 
-  { "date": "2024-02-13T03:00:37Z", "value": -39.6 }, 
-  { "date": "2024-02-13T06:00:37Z", "value": -14.3 }, 
-  { "date": "2024-02-13T09:00:37Z", "value": 10.3 }, 
-  { "date": "2024-02-13T12:00:37Z", "value": 22.8 }, 
-  { "date": "2024-02-13T15:00:37Z", "value": 14.9 }, 
-  { "date": "2024-02-13T18:00:37Z", "value": -7.8 }, 
-  { "date": "2024-02-13T21:00:37Z", "value": -34.1 }
-]
-  startTime = new Date()
-  endTime = new Date()
-  startTime.setHours(0, 0)
-  endTime.setHours(23, 59)
 
-  loc = [53.480759, -2.242631]
+export async function getElevation(time, loc) {
 
   req = 'https://api.meteomatics.com/' +
-    startTime.toISOString() + '--' +
-    endTime.toISOString() +
+    time.toISOString() + 
     '/sun_elevation:d/' +
     loc[0] + ',' +
     loc[1] +
     '/json' + '?' +
     'access_token=' + globToken
 
-  let asiData = 'Test'
+  let elivationData = 'Test'
 
   await fetch(req, {
     method: 'GET'
   }).then(function (resp) {
     return resp.json();
   }).then(function (data) {
-    asiData = data.data[0].coordinates[0].dates
+    elivationData = data.data[0].coordinates[0].dates[0].value
     console.log('Elevation data Successfully fetched')
   }).catch(function (err) {
     console.log('something went wrong', err);
   });
 
-  return (asiData)
+  return (elivationData)
+}
+
+async function getSunriseSunset(date, loc) {
+  
+  await getToken()
+  date = new Date()
+  req = 'https://api.meteomatics.com/' +
+    date.toISOString() + 
+    '/sunrise:sql,sunset:sql/' +
+    loc[0] + ',' +
+    loc[1] +
+    '/json' + '?' +
+    'access_token=' + globToken
+
+  returned = null
+
+  await fetch(req, {
+    method: 'GET'
+  }).then(function (resp) {
+    return resp.json();
+  }).then(function (data) {
+    returned = data.data 
+  }).catch(function (err) {
+    console.log('something went wrong', err);
+  });
+
+  sunrise = new Date(returned[0].coordinates[0].dates[0].value)
+  sunset = new Date(returned[1].coordinates[0].dates[0].value)
+  return [sunrise, sunset]
+
+}
+
+// needs xyz position of center and tilt of arc 
+export async function getArcToday() {
+  // sets today to be midday time 
+  today = new Date()
+  today.setHours(12, 0)
+  loc = [53.480759, -2.242631]
+
+  // gets the time of the sunset and sunrise for today
+  let [sunrise, sunset] = await getSunriseSunset(today, loc)
+
+  // gets the elevation of the sun at midday tells how much to tilt the arc by
+  middayAngle = await getElevation(today, loc)
+
+  // 
+  sunriseCoords = to3d(await getAsimov(sunrise, loc), 0)
+  sunsetCoords = to3d(await getAsimov(sunset, loc), 0)
+  
+
+  xMid = (sunriseCoords[0] + sunsetCoords[0]) / 2
+  yMid = (sunriseCoords[1] + sunsetCoords[1]) / 2
+
+
+  return [[xMid, yMid], middayAngle]
+}
+
+
+
+// DONT NEED ANYMORE 
+export function getArcPlacement3D(sunrise, sunset) {
+  x1 = sunrise[0]
+  y1 = sunrise[1]
+  x2 = sunset[0]
+  y2 = sunset[1]
+
+  
+  m =  (y1 - y2) / (x1 - x2)
+  c = y1 - (m * x1)
+
+  x = (-y1 + (m * x1))/((1/m) + m)
+  y = -(1/m) * x
+  
+  const lineFunc = (x) => {
+    return (m*x + c)
+  }
+
+  // gets the mid point between sunrise and sunset position 
+  xMid = (x1 + x2) / 2
+  yMid = (y1 + y2) / 2
+  console.log('Mids', xMid, yMid)
+  theta = 0
+
+  // IMPORTANT - roations for ar are counter clockwise
+  // if else for different rotation angle calculations based on the gradient of arc line
+  if (m = -Infinity) {
+    // occurs if arc is has gradient of negative infinity 
+    console.log('decided here')
+    theta = 90
+  } else if (m < 0) {
+    // if gradient is negative
+    // computes the angle to rotate the arc by, clockwise
+    yLen = lineFunc(xMid -1) - yMid
+    theta = 180 - toDegrees(Math.atan(yLen))
+  } else if (m > 0 ) {
+    // computes the angle to rotate the arc by, clockwise
+    yLen = lineFunc(xMid + 1) - yMid
+    // rotation angle is the obtuse angle 
+    theta = toDegrees(Math.atan(yLen))
+  } else if (m = 0) {
+    // if gradient is 0 then no rotation is needed
+    theta = 0
+  } 
+
+  return [xMid, yMid], theta
 }
