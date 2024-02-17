@@ -15,7 +15,6 @@ import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
-
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
 
@@ -37,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
         packages.add(new ReactViroPackage(ReactViroPackage.ViroPlatform.valueOf("AR")));
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
+          packages.add(new MyAppPackage());
         return packages;
       }
 

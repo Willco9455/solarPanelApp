@@ -1,6 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+
 buildscript {
+    subprojects {
+        afterEvaluate { project ->
+            if (project.hasProperty('android')) {
+                project.android {
+                    if (namespace == null) {
+                        namespace project.group
+                    }
+                }
+            }
+        }
+    }
+
     ext {
         buildToolsVersion = findProperty('android.buildToolsVersion') ?: '33.0.0'
         minSdkVersion = 24
@@ -17,6 +30,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        
         classpath('com.android.tools.build:gradle:8.1.2')
         classpath('com.facebook.react:react-native-gradle-plugin')
     }
@@ -33,9 +47,16 @@ allprojects {
             url(new File(['node', '--print', "require.resolve('jsc-android/package.json')"].execute(null, rootDir).text.trim(), '../dist'))
         }
 
+        maven {
+            // expo-camera bundles a custom com.google.android:cameraview
+            url "$rootDir/../node_modules/expo-camera/android/maven"
+        }
+
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }
+
+
     }
 }
 // @generated begin expo-camera-import - expo prebuild (DO NOT MODIFY) sync-f244f4f3d8bf7229102e8f992b525b8602c74770
