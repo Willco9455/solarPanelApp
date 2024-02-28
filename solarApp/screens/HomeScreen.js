@@ -2,11 +2,28 @@ import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { getArcToday } from '../util/solarAPI';
 import { useEffect, useState } from 'react';
 import ARScreen from './ARScreen';
-
+import GetLocation from 'react-native-get-location'
+import { Magnetometer } from 'expo-sensors';
+import Globals from '../util/Globals';
 
 
 
 export default function HomeScreen({ navigation }) {
+
+
+  GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 60000,
+  })
+  .then(location => {
+    Globals.setLocation([location.latitude, location.longitude])
+    console.log(Globals.getLocation())
+  })
+  .catch(error => {
+      const { code, message } = error;
+      console.warn(code, message);
+  })
+
 
   return (
     <View style={styles.container}>

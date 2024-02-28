@@ -1,5 +1,8 @@
 import { decode as atob, encode as btoa } from 'base-64'
+import Globals from './Globals';
 
+
+// let globToken = 'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoxLCJ1c2VyIjoiY3liZXJzZWN1cml0eTY5X3ByZW1lbF9zdHZlbiIsImlzcyI6ImxvZ2luLm1ldGVvbWF0aWNzLmNvbSIsImV4cCI6MTcwODYzNzMxMCwic3ViIjoiYWNjZXNzIn0.ICdavamu_jA7m6DWs7_rERUJhPP4kQtA1Z0e1JKsxtd2aSsig8Lblbdmk4yHK5tOmjqx9lyZtwvxXuPr6KaBFg'
 let globToken = null
 
 // converts degrees angle to radians
@@ -16,7 +19,7 @@ export function to3d(az, el) {
   let x = null
   let y = null
   let z = null
-  let scale = 1000
+  let scale = 100000
   if ((az >= 0) && (az <= 90)) {
     x = Math.cos(toRadians(az)) * scale
     y = Math.sin(toRadians(az)) * scale
@@ -43,10 +46,10 @@ export async function getToken() {
   }
   console.log('fetched new')
   let headers = new Headers()
-  username = "none_jonson_steve"
-  password = "OiBk8F7kY3"
+  username = "cybersecurity69_premel_stven"
+  password = "JrS2pFlR53"
   headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
-
+  
   await fetch('https://login.meteomatics.com/api/v1/token', {
     method: 'GET', headers: headers
   }).then(function (resp) {
@@ -64,15 +67,15 @@ export async function getToken() {
 export async function getAsimov(time, loc) {
   
   req = 'https://api.meteomatics.com/' +
-    time.toISOString() +
-    '/sun_azimuth:d/' +
-    loc[0] + ',' +
-    loc[1] +
-    '/json' + '?' +
-    'access_token=' + globToken
-
+  time.toISOString() +
+  '/sun_azimuth:d/' +
+  loc[0] + ',' +
+  loc[1] +
+  '/json' + '?' +
+  'access_token=' + globToken
+  
   let asiData = 'Test'
-
+  
   await fetch(req, {
     method: 'GET'
   }).then(function (resp) {
@@ -83,7 +86,7 @@ export async function getAsimov(time, loc) {
   }).catch(function (err) {
     console.log('something went wrong', err);
   });
-
+  
   return (asiData)
 }
 
@@ -116,19 +119,17 @@ export async function getElevation(time, loc) {
 }
 
 async function getSunriseSunset(date, loc) {
-  
   await getToken()
-  date = new Date()
   req = 'https://api.meteomatics.com/' +
-    date.toISOString() + 
-    '/sunrise:sql,sunset:sql/' +
-    loc[0] + ',' +
-    loc[1] +
-    '/json' + '?' +
-    'access_token=' + globToken
-
+  date.toISOString() + 
+  '/sunrise:sql,sunset:sql/' +
+  loc[0] + ',' +
+  loc[1] +
+  '/json' + '?' +
+  'access_token=' + globToken
+  console.log('request ',req)
   returned = null
-
+  
   await fetch(req, {
     method: 'GET'
   }).then(function (resp) {
@@ -137,26 +138,24 @@ async function getSunriseSunset(date, loc) {
     returned = data.data 
   }).catch(function (err) {
     console.log('something went wrong', err);
+    console.log('PROBABLY RAN OUT OF FREE REQUESTS MAKE NEW ACCOUNT')
   });
-
+  
   sunrise = new Date(returned[0].coordinates[0].dates[0].value)
   sunset = new Date(returned[1].coordinates[0].dates[0].value)
   return [sunrise, sunset]
 
 }
 
-// needs xyz position of center and tilt of arc 
-export async function getArcToday() {
-  // sets today to be midday time 
-  today = new Date()
-  today.setHours(12, 0)
-  loc = [53.480759, -2.242631]
 
+export async function getArcFromDate(date, loc) {
+  date.setHours(12, 0)
   // gets the time of the sunset and sunrise for today
-  let [sunrise, sunset] = await getSunriseSunset(today, loc)
+  let [sunrise, sunset] = await getSunriseSunset(date, loc)
 
+  
   // gets the elevation of the sun at midday tells how much to tilt the arc by
-  middayAngle = await getElevation(today, loc)
+  middayAngle = await getElevation(date, loc)
 
   // 
   sunriseCoords = to3d(await getAsimov(sunrise, loc), 0)
@@ -166,8 +165,13 @@ export async function getArcToday() {
   xMid = (sunriseCoords[0] + sunsetCoords[0]) / 2
   yMid = (sunriseCoords[1] + sunsetCoords[1]) / 2
 
+  obj = {
+    x: xMid,
+    y: yMid,
+    angle: middayAngle
+  }
+  return obj
 
-  return [[xMid, yMid], middayAngle]
 }
 
 
