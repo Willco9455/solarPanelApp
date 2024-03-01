@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CNN from './screens/CNN';
 import TestingScreen from './screens/TestingScreen';
+import PredictionScreen from './screens/PredictionScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,11 +18,12 @@ export default function App() {
           animated={true}
           backgroundColor="black"
         />
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="TestingScreen">
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="PredictionScreen">
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ARScreen" component={ARScreen} />
           <Stack.Screen name="CNNScreen" component={CNN} />
           <Stack.Screen name="TestingScreen" component={TestingScreen} />
+          <Stack.Screen name="PredictionScreen" component={PredictionScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
