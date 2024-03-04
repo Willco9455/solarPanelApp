@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 const predictionManager = new PredictionManager()
 
 export default function PredictionScreen() {
-  const [panelNum, setPanelNum] = useState(12)
+  const [panelNum, setPanelNum] = useState(11)
   const [efficency, setEfficency] = useState(20)
+  const [azi, setAzi] = useState(290)
+  const [tilt, setTilt] = useState(35)
   const [loading, setLoading] = useState(true)
 
   // wait for data from api to be loaded before stopping loading screen
@@ -33,6 +35,18 @@ export default function PredictionScreen() {
     console.log('efficency changed ', value)
   }
 
+  function updateAzi(value) {
+    predictionManager.setAzi(value)
+    setAzi(value)
+    console.log('Azi Changed ', value)
+  }
+
+  function updateTilt(value) { 
+    predictionManager.setTilt(value)
+    setTilt(value)
+    console.log('Tilt Changed ', value)
+  }
+
   
   if (loading) {
     return (
@@ -41,7 +55,6 @@ export default function PredictionScreen() {
       </View>
     )
   }
-  predictionManager.runTesting()
 
   return (
     <View style={styles.container}>
@@ -50,6 +63,10 @@ export default function PredictionScreen() {
         updatePanelNum={updatePanelNum}
         efficency={efficency}
         updateEfficency={updateEfficency}
+        azi={azi}
+        updateAzi={updateAzi}
+        tilt={tilt}
+        updateTilt={updateTilt}
       />
       <View style={styles.yearEstimateConatiner}>
         <MonthlyEstimate predictionManager={predictionManager} />

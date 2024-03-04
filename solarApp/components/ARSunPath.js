@@ -13,6 +13,7 @@ export default function ARSunPath(props) {
 
   useEffect(() => {
     setLoading(true)
+    // wait for camera to load
     setTimeout(() => {setLoading(false)}, 200)
     setArcInfo(props.sceneNavigator.viroAppProps.arcInfo)
   },[props.sceneNavigator.viroAppProps.arcInfo])

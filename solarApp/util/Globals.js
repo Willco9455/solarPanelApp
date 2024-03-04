@@ -1,6 +1,7 @@
 class GlobalsClass {
   constructor() {
-    this.location = [null, null]
+    // [lat, long]
+    this.location = [53.943989, -1.882660]
     this.radiationAPIKey = 'D24MFNil09iOtUdxr3di3BzTN4Yo4p0Q'
   }
 

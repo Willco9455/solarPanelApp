@@ -2,7 +2,7 @@ import { TemporaryDirectoryPath } from 'react-native-fs'
 
 // all averages are represented as a day of size 24 where at position 0 is the measurement 
 export class PredictionManager {
-  constructor(azi = 290, tilt = 35, lon = -1.8942216, lat = 53.9436528) {
+  constructor(azi = 290, tilt = 35, lon = -1.8942216, lat = 53.9436528, panelNum=11, efficency=0.2) {
     // responses from api saved to avoid recalling api
     this.data = []
     this.data = [
@@ -24,8 +24,8 @@ export class PredictionManager {
     this.lon = lon
     this.lat = lat
     this.panelArea = 1.95
-    this.panelNum = 11
-    this.efficency = 0.2
+    this.panelNum = panelNum
+    this.efficency = efficency
     this.shadeFactor = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   }
 
@@ -43,6 +43,14 @@ export class PredictionManager {
 
   setEfficency(percent) {
     this.efficency = percent / 100
+  }
+
+  setAzi(degree) { 
+    this.azi = degree
+  }
+
+  setTilt(degree) { 
+    this.tilt = degree
   }
 
   // get the data from the api for a given month(1-12) in a given year 

@@ -46,8 +46,8 @@ export async function getToken() {
   }
   console.log('fetched new')
   let headers = new Headers()
-  username = "cybersecurity69_premel_stven"
-  password = "JrS2pFlR53"
+  username = "testilol_scena_jon"
+  password = "nIM8dg56OS"
   headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
   
   await fetch('https://login.meteomatics.com/api/v1/token', {

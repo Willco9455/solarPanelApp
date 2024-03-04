@@ -18,7 +18,7 @@ export default function App() {
           animated={true}
           backgroundColor="black"
         />
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="PredictionScreen">
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="ARScreen">
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ARScreen" component={ARScreen} />
           <Stack.Screen name="CNNScreen" component={CNN} />
