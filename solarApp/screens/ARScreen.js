@@ -9,6 +9,7 @@ import Globals from '../util/Globals';
 
 
 export default function ARScreen() {
+
   const [loading, setLoading] = useState(true)
   const [arcInfo, setArcInfo] = useState([])
   const [activeButtons, setActiveButtons] = useState({
@@ -18,6 +19,7 @@ export default function ARScreen() {
     spring: false,
     autumn: false
   })
+
   // wait for camera to load first or will crash app
   useEffect(() => {
     const loadArc = async () => {
@@ -77,7 +79,7 @@ export default function ARScreen() {
     results = arcInfo.filter((obj) => {
       return (obj.name == arcName)
     })
-    // if the arc is currently already in the render array 
+    // if the arc is currently already in the render array then remove it 
     if (results.length != 0) {
       setArcInfo(arcInfo.filter((obj) => {
         return (obj.name != arcName)

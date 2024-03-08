@@ -8,31 +8,26 @@ import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
+from sf import getSFMultiImage
+from processVid import processVid
 app = Flask(__name__)
 
-
-from testing import getShadeFactor
-
+glob_model = tf.keras.models.load_model('./fast_scnn.keras', safe_mode=False)
+print('model Loaded')
 
 @app.route("/getShadeFactor", methods=["POST"])
 def generateSf():
-    file = request.files['image']
-    file.save('./recived.jpg')
+    file = request.files['vid']
+    folder_dir = './vidImages'
+    vid_path = './testVid.mp4'
     
-    image = cv2.imread('./recived.jpg', 1)
-    image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-    image = Image.fromarray(image)
-    image = np.array(image)
+    file.save(vid_path)
     
+    hours = 9
+    processVid(vid_path)
+    sf = getSFMultiImage(folder_dir, hours, glob_model)
 
-    image = cv2.imread('./recived.jpg', 1)
-    image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-    image = Image.fromarray(image)
-    image = np.array(image)
-    
-    sf = getShadeFactor(image, 3)
-
-    os.remove('./recived.jpg')
+    # os.remove('./recived.jpg')
     return jsonify({'shadeFactor': sf})
 
 

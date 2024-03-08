@@ -4,7 +4,7 @@ import {
   Viro3DObject,
   ViroCamera
 } from '@viro-community/react-viro';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 
 export default function ARSunPath(props) {
@@ -14,9 +14,18 @@ export default function ARSunPath(props) {
   useEffect(() => {
     setLoading(true)
     // wait for camera to load
-    setTimeout(() => {setLoading(false)}, 200)
+    setTimeout(() => { setLoading(false) }, 200)
     setArcInfo(props.sceneNavigator.viroAppProps.arcInfo)
-  },[props.sceneNavigator.viroAppProps.arcInfo])
+  }, [props.sceneNavigator.viroAppProps.arcInfo])
+
+  // useEffect(() => {
+  //   const capture = async () => {
+  //     result = await props.sceneNavigator.takeScreenshot('temp', true)
+  //     console.log(result)
+  //   }
+  //   capture()
+  // }, [props.sceneNavigator.viroAppProps.screenshot])
+
 
   const renderArcs = () => {
     if (loading) {
